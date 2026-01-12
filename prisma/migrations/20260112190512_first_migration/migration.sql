@@ -1,0 +1,25 @@
+-- CreateTable
+CREATE TABLE "User" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Car" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "placa" TEXT NOT NULL,
+    "disponivel" BOOLEAN NOT NULL DEFAULT true
+);
+
+-- CreateTable
+CREATE TABLE "Rental" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER NOT NULL,
+    "car_id" INTEGER NOT NULL,
+    "startDate" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "endDate" DATETIME NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'Andamento',
+    CONSTRAINT "Rental_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Rental_car_id_fkey" FOREIGN KEY ("car_id") REFERENCES "Car" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);

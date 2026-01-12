@@ -7,23 +7,33 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model user {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String
+enum RentalStatus {
+  Andamento
+  Terminada
 }
 
-model car {
-  id         Int     @id @default(autoincrement())
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String
+  email   String
+  rentals Rental[]
+}
+
+model Car {
+  id         Int      @id @default(autoincrement())
   placa      String
-  disponivel Boolean
+  disponivel Boolean @default(true)
+  rentals    Rental[]
 }
 
 model Rental {
-  id     Int          @id @default(autoincrement())
-  user_id Int 
-  car_id Int 
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  car_id    Int
   startDate DateTime @default(now())
-  endDate DateTime
-  status String
+  endDate   DateTime
+  status    RentalStatus @default(Andamento)
+
+  user User @relation(fields: [user_id], references: [id])
+  car  Car  @relation(fields: [car_id], references: [id])
 }
