@@ -1,0 +1,23 @@
+{
+  "name": "rentx_clean_architecture_com_inversify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "inversify": "^7.10.8",
+    "prisma": "^7.2.0",
+    "vitest": "^4.0.16"
+  }
+}
