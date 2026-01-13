@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client/extension";
 import { injectable } from "inversify";
 import { ICarRepository } from "../../../domain/repositories/ICarRepository";
-import { Cars } from "../../../domain/entities/Icars";
+import { Car } from "../../../domain/entities/Car";
 
 const prisma = new PrismaClient()
 
@@ -9,20 +9,22 @@ const prisma = new PrismaClient()
 export class PrismaCarRepository implements ICarRepository {
 
 
-    async findById(id: number): Promise<Cars> {
-        const car = await  prisma.Cars.findUnique({where:{id:id}})
+    async findById(id: number): Promise<Car> {
+        const car = await  prisma.cars.findUnique({where:{id:id}})
         return car
     }
-    create(): void {
+    async create(placa:string,disponivel:boolean): Promise<Car> {
+        const car = await prisma.car.create({data:{placa:placa,disponivel:disponivel}})
+        return car
+    }
+    remove(): Car {
         throw new Error("Method not implemented.");
     }
-    remove(): Cars {
-        throw new Error("Method not implemented.");
+    async findByLicensePlate(placa:string): Promise<Car> {
+       const car = await prisma.cars.findUnique({where:{placa:placa}})
+        return car
     }
-    findByLicensePlate(): Cars {
-        throw new Error("Method not implemented.");
-    }
-    listByAvailable(disponivel: boolean): Cars[] {
+    listByAvailable(disponivel: boolean): Car[] {
         throw new Error("Method not implemented.");
     }
 

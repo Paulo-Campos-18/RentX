@@ -1,9 +1,9 @@
-import {Cars} from "../entities/Icars"
+import {Car} from "../entities/Car"
 
 export interface ICarRepository{
-    create():void
-    remove(id:number):Cars
-    findByLicensePlate():Cars
-    findById(id:number):Promise<Cars>
-    listByAvailable(disponivel:boolean):Cars[]
+    create(placa:string,disponivel:boolean):Promise<Car>
+    remove(id:number):Car
+    findByLicensePlate(placa:string):Promise<Car>
+    findById(id:number):Promise<Car>
+    listByAvailable(disponivel:boolean):Car[]
 }
