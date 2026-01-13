@@ -12,21 +12,21 @@ enum RentalStatus {
   Terminada
 }
 
-model User {
+model Users {
   id      Int      @id @default(autoincrement())
   name    String
   email   String
-  rentals Rental[]
+  rentals Rentals[]
 }
 
-model Car {
+model Cars {
   id         Int      @id @default(autoincrement())
   placa      String
   disponivel Boolean @default(true)
-  rentals    Rental[]
+  rentals    Rentals[]
 }
 
-model Rental {
+model Rentals {
   id        Int      @id @default(autoincrement())
   user_id   Int
   car_id    Int
@@ -34,6 +34,6 @@ model Rental {
   endDate   DateTime
   status    RentalStatus @default(Andamento)
 
-  user User @relation(fields: [user_id], references: [id])
-  car  Car  @relation(fields: [car_id], references: [id])
+  user Users @relation(fields: [user_id], references: [id])
+  car  Cars  @relation(fields: [car_id], references: [id])
 }
