@@ -1,5 +1,5 @@
 export enum RentalStatus {
-    Andamento = "Em andamento",
+    Andamento = "Andamento",
     Terminada = "Terminada"
 }
 

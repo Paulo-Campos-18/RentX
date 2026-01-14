@@ -15,14 +15,14 @@ enum RentalStatus {
 model Users {
   id      Int      @id @default(autoincrement())
   name    String
-  email   String
+  email   String   @unique
   rentals Rentals[]
 }
 
 model Cars {
   id         Int      @id @default(autoincrement())
-  placa      String
-  disponivel Boolean @default(true)
+  placa      String   @unique
+  disponivel Boolean  @default(true)
   rentals    Rentals[]
 }
 

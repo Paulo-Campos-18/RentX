@@ -5,5 +5,6 @@ export interface IRentalRepository {
     remove(): void
     finishRent(id: number): void
     extendRent(id:number): void
-    findOnGoingRentalByUserId(userId:number):Promise<Rental>
+    findOnGoingRentalByUserId(userId:number):Promise<Rental|null>
+    findOnGoingRentalByCarId(carId:number):Promise<Rental|null>
 }
