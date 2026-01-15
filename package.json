@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.1",
+    "date-fns": "^4.1.0",
     "express": "^5.2.1",
     "inversify": "^7.10.8",
     "prisma": "^6.19.1",
