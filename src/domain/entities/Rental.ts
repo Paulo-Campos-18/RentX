@@ -10,7 +10,7 @@ export class Rental {
     endDate: Date;
     status: RentalStatus
 
-    constructor(user_id: number, car_id: number, endDate: Date, status: RentalStatus, startDate: Date = new Date()) {
+    constructor(user_id: number, car_id: number, endDate: Date, status: RentalStatus = RentalStatus.Andamento, startDate: Date = new Date()) {
         this.user_id = user_id;
         this.car_id = car_id;
         this.startDate = startDate;
