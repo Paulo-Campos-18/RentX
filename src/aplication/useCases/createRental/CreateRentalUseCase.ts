@@ -6,9 +6,9 @@ import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { CreateRentalDTO } from "./CreateRentalDTO";
 import { CarNotFoundError, CarUnavailableError } from "./errors/CarErrors";
 import { UserInRentalError, UserNotFoundError } from "./errors/UserErros";
-import { differenceInHours } from "date-fns";
 import { TimeLessThan24 } from "./errors/InputError";
 import { Rental } from "../../../domain/entities/Rental";
+import { IDateHelper } from "../../../domain/dateHelpers/IDateHelper";
 
 @injectable()
 class CreateRentalUseCase{
@@ -16,7 +16,8 @@ class CreateRentalUseCase{
     constructor(
         @inject(TYPES.CarRepository)private carRepository:ICarRepository,
         @inject(TYPES.RentalRepository)private rentalRepository:IRentalRepository,
-        @inject(TYPES.UserRepository) private userRepository:IUserRepository
+        @inject(TYPES.UserRepository) private userRepository:IUserRepository,
+        @inject(TYPES.Date_fns) private dateHelper:IDateHelper
     ){}
 
     async execute(input:CreateRentalDTO):Promise<Rental>{
@@ -33,8 +34,8 @@ class CreateRentalUseCase{
         const rentalFromRepo = await this.rentalRepository.findOnGoingRentalByUserId(input.userId);
         if(rentalFromRepo != null) throw new UserInRentalError("Não é possível alugar um carro, usuário de id " + input.userId + " já possuir um aluguel em aberto no momento.")
 
-        //Verificação do tempo de aluguel (dependnete de biblioteca, tenho de injetar)
-        const tempoAluguel = differenceInHours(input.endDate,new Date());
+        //Verificação do tempo de aluguel 
+        const tempoAluguel = this.dateHelper.differenceInHours(input.endDate,new Date());
         if(tempoAluguel < 24) throw new TimeLessThan24("O aluguel deve ter duração mínima de 24 horas.");
 
         const rental = await this.rentalRepository.create(input.userId,input.carId,input.endDate);
