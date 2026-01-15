@@ -9,9 +9,13 @@ const prisma = new PrismaClient();
 export class PrismaRentalRepository implements IRentalRepository {
 
 
-    async create(user_id: number, car_id: number, endDate: Date, status: RentalStatus): Promise<Rental> {
-        const prismaStatus = toPrismaStatus(status)
-        const rental = await prisma.rentals.create({ data: { user_id: user_id, car_id: car_id, endDate: endDate, status: prismaStatus } })
+    async create(user_id: number, car_id: number, endDate: Date, status?: RentalStatus): Promise<Rental> {
+        if(status != undefined){
+            const prismaStatus = toPrismaStatus(status)
+            const rental = await prisma.rentals.create({ data: { user_id: user_id, car_id: car_id, endDate: endDate, status: prismaStatus } })
+            return toDomainRental(rental)
+        }
+        const rental = await prisma.rentals.create({ data: { user_id: user_id, car_id: car_id, endDate: endDate } })
         return toDomainRental(rental)
     }
     async findOnGoingRentalByUserId(userId: number): Promise<Rental | null> {

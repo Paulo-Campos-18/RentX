@@ -38,7 +38,7 @@ class CreateRentalUseCase{
         const tempoAluguel = differenceInHours(input.endDate,new Date());
         if(tempoAluguel < 24) throw new TimeLessThan24("O aluguel deve ter duração mínima de 24 horas.");
 
-        const rental = await this.rentalRepository.create(input.userId,input.carId,input.endDate,RentalStatus.Andamento)
+        const rental = await this.rentalRepository.create(input.userId,input.carId,input.endDate);
 
         return rental;
 
