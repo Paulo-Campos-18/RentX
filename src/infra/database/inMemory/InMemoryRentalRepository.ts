@@ -7,9 +7,11 @@ export class InMemoryRentalRepository implements IRentalRepository {
     create(user_id: number, car_id: number, endDate: Date, status?: RentalStatus): Promise<Rental> {
         if (status != undefined) {
             const rental = new Rental(user_id, car_id, endDate, status)
+            this.rentals.push(rental)
             return Promise.resolve(rental)
         }
         const rental = new Rental(user_id, car_id, endDate)
+        this.rentals.push(rental)
         return Promise.resolve(rental)
     }
     remove(): void {

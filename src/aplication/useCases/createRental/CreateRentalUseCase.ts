@@ -11,7 +11,7 @@ import { Rental } from "../../../domain/entities/Rental";
 import { IDateHelper } from "../../../domain/dateHelpers/IDateHelper";
 
 @injectable()
-class CreateRentalUseCase{
+export class CreateRentalUseCase{
     
     constructor(
         @inject(TYPES.CarRepository)private carRepository:ICarRepository,
