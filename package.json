@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest "
+    "test": "vitest ",
+    "main":"npx tsx src/adapters/cli/main.ts"
   },
   "keywords": [],
   "author": "",
