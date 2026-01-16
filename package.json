@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest ",
-    "main":"npx tsx src/adapters/cli/main.ts"
+    "main":"npx tsx src/adapters/cli/main.ts",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:seed": "npx tsx prisma/seed.ts"
+
   },
   "keywords": [],
   "author": "",

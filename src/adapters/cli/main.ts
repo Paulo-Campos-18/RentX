@@ -9,7 +9,7 @@ async function main() {
         const useCase = container.get<CreateRentalUseCase>(TYPES.CreateRentalUseCase)
 
         const inputSimulation: CreateRentalDTO = {
-            userId: 2,
+            userId: 3,
             carId: 1,
             endDate: new Date("2026/01/18")
         }
