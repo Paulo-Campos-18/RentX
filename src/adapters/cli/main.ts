@@ -15,11 +15,11 @@ async function main() {
         }
 
         const result = await useCase.execute(inputSimulation);
-        console.log("Aluguel criado com sucesso")
+        console.log("Aluguel criado com sucesso!")
         console.log(result)
 
     } catch (e: any) {
-        console.log(e.message)
+        console.log("Error " + e.name + ": " + e.message)
     }
 }
 
