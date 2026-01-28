@@ -22,7 +22,7 @@
 Para rodar o programa use o seguinte comando:
 
 ```bash
-npm run start
+npm run main
 ```
 Nota: em main.ts está o input simulando uma entrada real na aplicação.
 
