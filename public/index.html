@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RentX — Sistema moderno de aluguel de carros. Gerencie usuários, veículos e aluguéis com facilidade.">
+    <title>RentX — Aluguel de Carros</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+</head>
+<body>
+    <div class="app-wrapper">
+
+        <!-- ========= HEADER ========= -->
+        <header class="header">
+            <div class="header-inner">
+                <a href="#" class="logo" id="logo">
+                    <div class="logo-icon">🚗</div>
+                    <span class="logo-text">RentX</span>
+                </a>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <button class="btn btn-secondary" id="theme-toggle" style="padding: 6px 12px; border-radius: 100px;" title="Alternar tema">
+                        <span id="theme-icon">☀️</span>
+                    </button>
+                    <span class="header-badge">API Online</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========= NAVIGATION ========= -->
+        <nav class="nav-tabs" id="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard" id="nav-dashboard">
+                📊 Dashboard
+            </button>
+            <button class="nav-tab" data-tab="users" id="nav-users">
+                👤 Usuários <span class="tab-count" id="users-count">0</span>
+            </button>
+            <button class="nav-tab" data-tab="cars" id="nav-cars">
+                🚘 Carros <span class="tab-count" id="cars-count">0</span>
+            </button>
+            <button class="nav-tab" data-tab="rentals" id="nav-rentals">
+                📋 Aluguéis <span class="tab-count" id="rentals-count">0</span>
+            </button>
+        </nav>
+
+        <!-- ========= MAIN CONTENT ========= -->
+        <main class="main-content">
+
+            <!-- ---- DASHBOARD ---- -->
+            <section class="section active" id="section-dashboard">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title"><span class="icon">📊</span> Dashboard</h1>
+                        <p class="section-subtitle">Visão geral do sistema RentX</p>
+                    </div>
+                </div>
+
+                <div class="stats-bar" id="stats-bar">
+                    <div class="stat-card">
+                        <div class="stat-icon users">👤</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-users">—</span>
+                            <span class="stat-label">Usuários cadastrados</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon cars">🚘</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-cars">—</span>
+                            <span class="stat-label">Carros no sistema</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon rentals">📋</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-rentals">—</span>
+                            <span class="stat-label">Total de aluguéis</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon active">✅</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-available">—</span>
+                            <span class="stat-label">Carros disponíveis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title" style="font-size:1.3rem"><span class="icon">📋</span> Aluguéis Recentes</h2>
+                    </div>
+                </div>
+                <div class="cards-grid" id="dashboard-rentals-grid">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+            </section>
+
+            <!-- ---- USERS ---- -->
+            <section class="section" id="section-users">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title"><span class="icon">👤</span> Usuários</h1>
+                        <p class="section-subtitle">Gerencie os usuários cadastrados</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-new-user">
+                        <span class="btn-icon">+</span> Novo Usuário
+                    </button>
+                </div>
+                <div class="cards-grid" id="users-grid">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+            </section>
+
+            <!-- ---- CARS ---- -->
+            <section class="section" id="section-cars">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title"><span class="icon">🚘</span> Carros</h1>
+                        <p class="section-subtitle">Frota de veículos cadastrados</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-new-car">
+                        <span class="btn-icon">+</span> Novo Carro
+                    </button>
+                </div>
+                <div class="cards-grid" id="cars-grid">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+            </section>
+
+            <!-- ---- RENTALS ---- -->
+            <section class="section" id="section-rentals">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title"><span class="icon">📋</span> Aluguéis</h1>
+                        <p class="section-subtitle">Todos os aluguéis registrados</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-new-rental">
+                        <span class="btn-icon">+</span> Novo Aluguel
+                    </button>
+                </div>
+                <div class="cards-grid" id="rentals-grid">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ========= MODALS ========= -->
+
+    <!-- Modal: Novo Usuário -->
+    <div class="modal-overlay" id="modal-user">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Novo Usuário</h3>
+                <button class="modal-close" onclick="closeModal('modal-user')">✕</button>
+            </div>
+            <form id="form-user" onsubmit="handleCreateUser(event)">
+                <div class="form-group">
+                    <label class="form-label" for="user-name">Nome</label>
+                    <input class="form-input" type="text" id="user-name" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="user-email">Email</label>
+                    <input class="form-input" type="email" id="user-email" placeholder="Ex: joao@email.com" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-user')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-user">Criar Usuário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Novo Carro -->
+    <div class="modal-overlay" id="modal-car">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Novo Carro</h3>
+                <button class="modal-close" onclick="closeModal('modal-car')">✕</button>
+            </div>
+            <form id="form-car" onsubmit="handleCreateCar(event)">
+                <div class="form-group">
+                    <label class="form-label" for="car-placa">Placa</label>
+                    <input class="form-input" type="text" id="car-placa" placeholder="Ex: ABC1D23" required maxlength="7" style="text-transform:uppercase">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-car')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-car">Criar Carro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Novo Aluguel -->
+    <div class="modal-overlay" id="modal-rental">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Novo Aluguel</h3>
+                <button class="modal-close" onclick="closeModal('modal-rental')">✕</button>
+            </div>
+            <form id="form-rental" onsubmit="handleCreateRental(event)">
+                <div class="form-group">
+                    <label class="form-label" for="rental-user">Usuário</label>
+                    <select class="form-select" id="rental-user" required>
+                        <option value="">Selecione um usuário...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="rental-car">Carro</label>
+                    <select class="form-select" id="rental-car" required>
+                        <option value="">Selecione um carro...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="rental-end">Data de Devolução</label>
+                    <input class="form-input" type="datetime-local" id="rental-end" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-rental')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-rental">Criar Aluguel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ========= JAVASCRIPT ========= -->
+    <script>
+    // =============================================
+    //  Theme Toggle
+    // =============================================
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    // Load saved theme
+    if (localStorage.getItem('rentx-theme') === 'light') {
+        document.body.classList.add('light-theme');
+        themeIcon.textContent = '🌙';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        localStorage.setItem('rentx-theme', isLight ? 'light' : 'dark');
+        themeIcon.textContent = isLight ? '🌙' : '☀️';
+    });
+
+    // =============================================
+    //  API Helpers
+    // =============================================
+    const API = {
+        async get(url) {
+            const res = await fetch(url);
+            return res.json();
+        },
+        async post(url, body) {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+            return data;
+        }
+    };
+
+    // =============================================
+    //  State
+    // =============================================
+    let usersData = [];
+    let carsData = [];
+    let rentalsData = [];
+
+    // =============================================
+    //  Tab Navigation
+    // =============================================
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(`section-${tab.dataset.tab}`).classList.add('active');
+        });
+    });
+
+    // =============================================
+    //  Modal Helpers
+    // =============================================
+    function openModal(id) {
+        document.getElementById(id).classList.add('visible');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('visible');
+    }
+
+    // Close modal on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.classList.remove('visible');
+        });
+    });
+
+    // Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.visible').forEach(m => m.classList.remove('visible'));
+        }
+    });
+
+    // =============================================
+    //  Toast Notifications
+    // =============================================
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    // =============================================
+    //  Formatting Helpers
+    // =============================================
+    function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('pt-BR', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+    }
+
+    // =============================================
+    //  Render Functions
+    // =============================================
+
+    function renderUsers(users) {
+        const grid = document.getElementById('users-grid');
+        if (users.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">👤</div>
+                    <p>Nenhum usuário cadastrado ainda. Crie o primeiro!</p>
+                </div>`;
+            return;
+        }
+        grid.innerHTML = users.map(u => `
+            <div class="card" id="user-card-${u.id}">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">${u.name}</div>
+                    </div>
+                    <span class="card-id">#${u.id}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Email</span>
+                    <span>${u.email}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Aluguéis</span>
+                    <span>${u.rentals ? u.rentals.length : 0}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderCars(cars) {
+        const grid = document.getElementById('cars-grid');
+        if (cars.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">🚘</div>
+                    <p>Nenhum carro cadastrado ainda. Adicione o primeiro!</p>
+                </div>`;
+            return;
+        }
+        grid.innerHTML = cars.map(c => `
+            <div class="card" id="car-card-${c.id}">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title" style="font-family:monospace;letter-spacing:0.1em">${c.placa}</div>
+                    </div>
+                    <span class="card-id">#${c.id}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Status</span>
+                    <span class="badge ${c.disponivel ? 'badge-available' : 'badge-unavailable'}">
+                        ${c.disponivel ? 'Disponível' : 'Indisponível'}
+                    </span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Aluguéis</span>
+                    <span>${c.rentals ? c.rentals.length : 0}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderRentals(rentals, gridId = 'rentals-grid') {
+        const grid = document.getElementById(gridId);
+        if (rentals.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">📋</div>
+                    <p>Nenhum aluguel registrado ainda. Crie o primeiro!</p>
+                </div>`;
+            return;
+        }
+        grid.innerHTML = rentals.map(r => `
+            <div class="card" id="rental-card-${r.id}">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">${r.user ? r.user.name : `Usuário #${r.user_id}`}</div>
+                    </div>
+                    <span class="badge ${r.status === 'Andamento' ? 'badge-active' : 'badge-done'}">
+                        ${r.status === 'Andamento' ? 'Em Andamento' : 'Terminada'}
+                    </span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Carro</span>
+                    <span style="font-family:monospace">${r.car ? r.car.placa : `#${r.car_id}`}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Início</span>
+                    <span>${formatDate(r.startDate)}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="label">Fim</span>
+                    <span>${formatDate(r.endDate)}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function updateStats() {
+        document.getElementById('stat-users').textContent = usersData.length;
+        document.getElementById('stat-cars').textContent = carsData.length;
+        document.getElementById('stat-rentals').textContent = rentalsData.length;
+        document.getElementById('stat-available').textContent = carsData.filter(c => c.disponivel).length;
+
+        document.getElementById('users-count').textContent = usersData.length;
+        document.getElementById('cars-count').textContent = carsData.length;
+        document.getElementById('rentals-count').textContent = rentalsData.length;
+    }
+
+    function populateRentalSelects() {
+        const userSelect = document.getElementById('rental-user');
+        const carSelect = document.getElementById('rental-car');
+
+        userSelect.innerHTML = '<option value="">Selecione um usuário...</option>' +
+            usersData.map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
+
+        carSelect.innerHTML = '<option value="">Selecione um carro...</option>' +
+            carsData.filter(c => c.disponivel).map(c => `<option value="${c.id}">${c.placa}</option>`).join('');
+    }
+
+    // =============================================
+    //  Data Loading
+    // =============================================
+    async function loadAll() {
+        try {
+            const [users, cars, rentals] = await Promise.all([
+                API.get('/api/users'),
+                API.get('/api/cars'),
+                API.get('/api/rentals'),
+            ]);
+
+            usersData = users;
+            carsData = cars;
+            rentalsData = rentals;
+
+            renderUsers(users);
+            renderCars(cars);
+            renderRentals(rentals);
+            renderRentals(rentals.slice(0, 6), 'dashboard-rentals-grid');
+            updateStats();
+            populateRentalSelects();
+        } catch (err) {
+            showToast('Erro ao carregar dados: ' + err.message, 'error');
+        }
+    }
+
+    // =============================================
+    //  Event Handlers
+    // =============================================
+
+    // Open modals
+    document.getElementById('btn-new-user').addEventListener('click', () => openModal('modal-user'));
+    document.getElementById('btn-new-car').addEventListener('click', () => openModal('modal-car'));
+    document.getElementById('btn-new-rental').addEventListener('click', () => {
+        populateRentalSelects();
+        // Set default end date to 2 days from now
+        const d = new Date();
+        d.setDate(d.getDate() + 2);
+        document.getElementById('rental-end').value = d.toISOString().slice(0, 16);
+        openModal('modal-rental');
+    });
+
+    // Create User
+    async function handleCreateUser(e) {
+        e.preventDefault();
+        const name = document.getElementById('user-name').value.trim();
+        const email = document.getElementById('user-email').value.trim();
+        try {
+            await API.post('/api/users', { name, email });
+            showToast(`Usuário "${name}" criado com sucesso!`);
+            closeModal('modal-user');
+            document.getElementById('form-user').reset();
+            await loadAll();
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    }
+
+    // Create Car
+    async function handleCreateCar(e) {
+        e.preventDefault();
+        const placa = document.getElementById('car-placa').value.trim().toUpperCase();
+        try {
+            await API.post('/api/cars', { placa, disponivel: true });
+            showToast(`Carro "${placa}" cadastrado com sucesso!`);
+            closeModal('modal-car');
+            document.getElementById('form-car').reset();
+            await loadAll();
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    }
+
+    // Create Rental
+    async function handleCreateRental(e) {
+        e.preventDefault();
+        const userId = document.getElementById('rental-user').value;
+        const carId = document.getElementById('rental-car').value;
+        const endDate = document.getElementById('rental-end').value;
+        try {
+            await API.post('/api/rentals', { userId, carId, endDate });
+            showToast('Aluguel criado com sucesso!');
+            closeModal('modal-rental');
+            document.getElementById('form-rental').reset();
+            await loadAll();
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    }
+
+    // =============================================
+    //  Init
+    // =============================================
+    loadAll();
+    </script>
+</body>
+</html>
